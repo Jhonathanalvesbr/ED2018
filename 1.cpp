@@ -7,11 +7,11 @@ int main (){
 	soma = n1+n2+n3+n4;
 	if(soma / 4 >= 6)
 	{
-		printf("\n------------------\n| %.2f Aprovado|\n------------------\n", soma);
+		printf("\n------------------\n| %.2f Aprovado|\n------------------\n", soma/4);
 	}
 	else
 	{
-		printf("\n------------------\n| %.2f Reprovado|\n------------------\n", soma);
+		printf("\n------------------\n| %.2f Reprovado|\n------------------\n", soma/4);
 	}
 	return 0;
 }
