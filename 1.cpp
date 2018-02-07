@@ -12,6 +12,6 @@ int main (){
 	else
 	{
 		printf("\n------------------\n| %.2f Reprovado|\n------------------\n", soma/4);
-	}
+	} 
 	return 0;
 }
