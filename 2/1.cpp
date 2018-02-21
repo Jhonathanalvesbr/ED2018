@@ -1,7 +1,7 @@
 #include<stdio.h>
 #include<string.h>
 int main (){
-	char palavra[20] = "";
+	char palavra[21] = "";
 	gets(palavra);
 	if(strcmp(palavra,"teste") == 0)
 	{
