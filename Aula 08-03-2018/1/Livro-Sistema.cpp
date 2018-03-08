@@ -1,6 +1,6 @@
-/*Criar um TAD livro, que contém os elementos título, ano de edição, número de páginas e preço.
-Criar as operações criar, acessar e liberar. Faça um programa que usa o TAD criado para ler e
-armazenar em vetor dados de 5 livros. Imprimir a média do número de páginas dos livros.*/
+/*Criar um TAD livro, que contÃ©m os elementos tÃ­tulo, ano de ediÃ§Ã£o, nÃºmero de pÃ¡ginas e preÃ§o.
+Criar as operaÃ§Ãµes criar, acessar e liberar. FaÃ§a um programa que usa o TAD criado para ler e
+armazenar em vetor dados de 5 livros. Imprimir a mÃ©dia do nÃºmero de pÃ¡ginas dos livros.*/
 
 #include<stdio.h>
 #include<stdlib.h>
@@ -37,7 +37,13 @@ int main () {
 		media = pagina + media;
 	}
 	
-	printf("A media de paginas dos livro: %.2f", media/x);
+	printf("A media de paginas dos livros: %.2f", media/x);
+	
+	for(x; x < 5; x++)
+	{
+		livro = &dados[x];
+		liberar(livro);
+	}
 	
 	return 0;
 }
