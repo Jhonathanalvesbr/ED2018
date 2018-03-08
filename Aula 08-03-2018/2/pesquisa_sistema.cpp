@@ -36,6 +36,8 @@ int main ()
 	
 	printf("Media de salario %.2f", media/x);
 	
+	x = 0;
+	
 	for(x; x < 5; x++)
 	{
 		ficha_pesquisa = &dados[x];
