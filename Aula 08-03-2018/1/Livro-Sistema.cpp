@@ -39,6 +39,8 @@ int main () {
 	
 	printf("A media de paginas dos livros: %.2f", media/x);
 	
+	x = 0;
+	
 	for(x; x < 5; x++)
 	{
 		livro = &dados[x];
