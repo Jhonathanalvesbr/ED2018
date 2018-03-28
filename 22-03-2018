@@ -11,7 +11,7 @@
 #include<string.h>
 #define N 100
 
-int pilha[N], topo;
+char pilha[N], topo;
 
 void criar_pilha()
 {
