@@ -16,7 +16,6 @@ char algebrica[100][100];
 
 char* pop()
 {
-	algebrica[0][topo] = '\0';
 	return algebrica[--topo];
 }
 
