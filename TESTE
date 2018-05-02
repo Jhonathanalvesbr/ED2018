@@ -1,0 +1,122 @@
+#include<stdlib.h>
+#include<stdio.h>
+
+// tarefa: implementar funções para:
+// 1. inserir um elemento no final da lista
+// 2. excluir o último elemento da lista
+// 3. inserir um elemento na enésima posição
+// 4. excluir o enésimo elemento
+
+typedef struct vetor V;
+	
+struct vetor
+{
+	int informacao;
+	V *proximo;
+};
+	
+V *lista = NULL;
+
+V* getnode()
+{
+	V *no = (V*) malloc(sizeof(V));
+	if(no != NULL)
+	{
+		return no;
+	}
+	else
+	{
+		printf("Memoria Insficiente.\n");
+		exit(0);
+	}
+}
+
+void freenode(V *no)
+{
+	free(no);
+}
+
+
+void inserirNoFim(int numero)
+{
+	V *ponteiro = lista, *ultimo;
+	
+	while(ponteiro != NULL)
+	{
+		ultimo = ponteiro;
+		ponteiro = ponteiro->proximo;
+	}
+	
+	ponteiro = getnode();
+	ponteiro->informacao = numero;
+	ponteiro->proximo = NULL;
+	ultimo->proximo = ponteiro;
+}
+
+void removerDoFim()
+{
+	V *ponteiro = lista, *ultimo;
+	
+	while(ponteiro != NULL)
+	{
+		ultimo = ponteiro;
+		ponteiro = ponteiro->proximo;
+	}
+	
+	ponteiro = ultimo;
+	free(ponteiro);
+	
+	
+}
+
+
+void inserirNoInicio(int numero)
+{
+	V *ponteiro = getnode();
+	ponteiro->informacao = numero;
+	ponteiro->proximo = lista;
+	lista = ponteiro;
+}
+
+int removerDoInicio()
+{
+	int remover;
+	
+	V *ponteiro = lista;
+	remover= ponteiro->informacao;
+	lista = ponteiro->proximo;
+	free(ponteiro);
+	
+	return remover;
+}
+
+
+
+int main ()
+{
+	int elemento = 0;
+	
+	do
+	{
+		system("cls");
+		printf("Digite o elemento: ");
+		if(elemento != 0)
+		{
+			inserirNoInicio(elemento);
+			
+		}
+	}
+	while(scanf("%i", &elemento), elemento != 0);
+//	scanf("%i", &elemento);
+	
+	//inserirNoFim(elemento);
+	
+	removerDoFim();
+	
+	while(lista != NULL)
+	{
+		printf("Elemento: %i\n", removerDoInicio());
+	}
+	
+	return 0;
+}
