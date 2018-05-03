@@ -57,13 +57,13 @@ void removerDoFim()
 {
 	V *ponteiro = lista, *ultimo;
 	
-	while(ponteiro != NULL)
+	while(ponteiro->proximo != NULL)
 	{
 		ultimo = ponteiro;
 		ponteiro = ponteiro->proximo;
 	}
 	
-	ponteiro = ultimo;
+	ultimo->proximo = NULL;
 	free(ponteiro);
 	
 	
