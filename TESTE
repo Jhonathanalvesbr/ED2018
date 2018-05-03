@@ -7,20 +7,20 @@
 // 3. inserir um elemento na enésima posição
 // 4. excluir o enésimo elemento
 
-typedef struct vetor V;
+typedef struct no No;
 	
-struct vetor
+struct no
 {
-	int informacao, x;
-	V *proximo;
+	int informacao;
+	No *proximo;
 };
 	
-V *lista = NULL;
+No *lista = NULL;
 int x = 0;
 
-V* getnode()
+No* getnode()
 {
-	V *no = (V*) malloc(sizeof(V));
+	No *no = (No*) malloc(sizeof(No));
 	if(no != NULL)
 	{
 		return no;
@@ -32,40 +32,36 @@ V* getnode()
 	}
 }
 
-void freenode(V *no)
+void freenode(No *no)
 {
 	free(no);
 }
 
-void inserirNaPosicao(int posicao, int numero)
+
+void removerNaPosicao(int posicao, int numero)
 {
-	V *l=lista, *inserir, *ant;
-	while(posicao-1 != l->x)
+	No *p1=lista, *p2;
+	int x = 0;
+	while(posicao != x)
 	{
-		//printf("Posicao %i: %i\n", l->x, posicao);
-		ant = l;
-		l = l->proximo;
+		p2 = p1;
+		p1 = p1->proximo;
+		x++;
 	}
 	
-	inserir = getnode();
-	inserir->informacao = numero;
-	inserir->x=x++;
-	inserir->proximo = l;
-	ant->proximo = inserir;
+	printf("Posicao %i: %i\n", x, posicao);
 	
-	l = lista;
-	int x = 0;
-	while(l != NULL)
+	if(posicao == 0)
 	{
-		l->x = x++;
-		l = l->proximo;
+		removerNoInicio(numero);
 	}
 }
 
 
+
 void inserirNoFim(int numero)
 {
-	V *ponteiro = lista, *ultimo;
+	No *ponteiro = lista, *ultimo;
 	
 	while(ponteiro != NULL)
 	{
@@ -75,14 +71,14 @@ void inserirNoFim(int numero)
 	
 	ponteiro = getnode();
 	ponteiro->informacao = numero;
-	ponteiro->x = x++;
+//	ponteiro->x = x++;
 	ponteiro->proximo = NULL;
 	ultimo->proximo = ponteiro;
 }
 
 void removerDoFim()
 {
-	V *ponteiro = lista, *ultimo;
+	No *ponteiro = lista, *ultimo;
 	
 	while(ponteiro->proximo != NULL)
 	{
@@ -98,18 +94,41 @@ void removerDoFim()
 
 void inserirNoInicio(int numero)
 {
-	V *ponteiro = getnode();
+	No *ponteiro = getnode();
 	ponteiro->informacao = numero;
-	ponteiro->x = x++;
+//	ponteiro->x = x++;
 	ponteiro->proximo = lista;
 	lista = ponteiro;
+}
+
+
+void inserirNaPosicao(int posicao, int numero)
+{
+	No *p1=lista, *p2, *inserir;
+	int x = 0;
+	while(posicao != x)
+	{
+		//printf("Posicao %i: %i\n", x, posicao);
+		p2 = p1;
+		p1 = p1->proximo;
+		x++;
+	}
+	
+	inserir = getnode();
+	inserir->informacao = numero;
+	inserir->proximo = p1;
+	p2->proximo = inserir;
+	if(posicao == 0)
+	{
+		inserirNoInicio(numero);
+	}
 }
 
 int removerDoInicio()
 {
 	int remover;
 	
-	V *ponteiro = lista;
+	No *ponteiro = lista;
 	remover= ponteiro->informacao;
 	lista = ponteiro->proximo;
 	free(ponteiro);
