@@ -38,27 +38,6 @@ void freenode(No *no)
 }
 
 
-void removerNaPosicao(int posicao, int numero)
-{
-	No *p1=lista, *p2;
-	int x = 0;
-	while(posicao != x)
-	{
-		p2 = p1;
-		p1 = p1->proximo;
-		x++;
-	}
-	
-	printf("Posicao %i: %i\n", x, posicao);
-	
-	if(posicao == 0)
-	{
-		removerNoInicio(numero);
-	}
-}
-
-
-
 void inserirNoFim(int numero)
 {
 	No *ponteiro = lista, *ultimo;
@@ -90,6 +69,7 @@ void removerDoFim()
 	free(ponteiro);
 	
 }
+
 
 
 void inserirNoInicio(int numero)
@@ -136,7 +116,27 @@ int removerDoInicio()
 	return remover;
 }
 
-
+void removerNaPosicao(int posicao)
+{
+	No *p1=lista, *p2;
+	int x = 0;
+	while(posicao != x)
+	{
+		p2 = p1;
+		p1 = p1->proximo;
+		x++;
+	}
+	
+	p2->proximo = p1->proximo;
+	
+	if(posicao == 0)
+	{
+		removerDoInicio();
+	}
+	
+	free(p1);
+	
+}
 
 int main ()
 {
@@ -156,11 +156,11 @@ int main ()
 	
 	printf("Digite a posicao: ");
 	scanf("%i", &pos);
-	printf("Digite o elemento: ");
-	scanf("%i", &elemento);
+//	printf("Digite o elemento: ");
+//	scanf("%i", &elemento);
 	
-	inserirNaPosicao(pos, elemento);
-	
+	//inserirNaPosicao(pos, elemento);
+	removerNaPosicao(pos);
 	//inserirNoFim(elemento);
 	
 	//removerDoFim();
