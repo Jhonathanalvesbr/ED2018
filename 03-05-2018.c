@@ -133,9 +133,6 @@ void removerNaPosicao(int posicao)
 	{
 		removerDoInicio();
 	}
-	
-	free(p1);
-	
 }
 
 int main ()
