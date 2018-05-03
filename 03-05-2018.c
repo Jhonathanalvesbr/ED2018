@@ -50,7 +50,6 @@ void inserirNoFim(int numero)
 	
 	ponteiro = getnode();
 	ponteiro->informacao = numero;
-//	ponteiro->x = x++;
 	ponteiro->proximo = NULL;
 	ultimo->proximo = ponteiro;
 }
@@ -76,7 +75,6 @@ void inserirNoInicio(int numero)
 {
 	No *ponteiro = getnode();
 	ponteiro->informacao = numero;
-//	ponteiro->x = x++;
 	ponteiro->proximo = lista;
 	lista = ponteiro;
 }
@@ -88,7 +86,6 @@ void inserirNaPosicao(int posicao, int numero)
 	int x = 0;
 	while(posicao != x)
 	{
-		//printf("Posicao %i: %i\n", x, posicao);
 		p2 = p1;
 		p1 = p1->proximo;
 		x++;
