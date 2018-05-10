@@ -52,7 +52,7 @@ Fila* atenderPedido(Fila* sistema)
 	}
 	
 	sistema->posicao = (sistema->elemento+sistema->posicao+1)%TAMANHO;
-	sistema->elemento--;
+
 
 	return sistema;
 }
