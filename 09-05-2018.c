@@ -14,10 +14,10 @@ typedef struct fila Fila;
 
 struct fila
 {
-	int codigo, posicao, elemento;
+	int codigo[TAMANHO], posicao, elemento;
 };
 
-int elemento = 0;
+
 Fila* criar()
 {
 	Fila* criar = (Fila*) malloc(sizeof(Fila));
@@ -30,55 +30,42 @@ Fila* criar()
 	return 0;
 }
 
-Fila* novoPedido(int codigo)
+Fila* novoPedido(int codigo, Fila* novo)
 {
-	Fila* novo = criar();
+	if(novo == NULL)
+	{
+		novo = criar();
+	}
 	novo->posicao = (novo->elemento+novo->posicao)%TAMANHO;
-	novo->codigo = codigo;
-	novo->elemento = elemento++;
+	novo->codigo[novo->elemento++] = codigo;
 	
 	return novo;
 }
 
-Fila* pedidoConlcuido(Fila* sistemam, int codigo)
-{
-	Fila* novo = criar();
-	
-	novo->posicao = (novo->elemento+novo->posicao)%TAMANHO;
-	novo->codigo = codigo;
-	novo->elemento++;
-	
-	return novo;
-}
 
-int atenderPedido(Fila* sistema)
+Fila* atenderPedido(Fila* sistema)
 {
-	if(elemento == 0)
+	if(sistema->elemento == 0)
 	{
 		printf("Lista Vazia\n");
 		return 0;
 	}
 	
-	int codigo = sistema->codigo;
-	
-	pedidoConlcuido(sistema, codigo);
-	
-	sistema->posicao = (sistema->posicao+1)%TAMANHO;
+	sistema->posicao = (sistema->elemento+sistema->posicao+1)%TAMANHO;
 	sistema->elemento--;
-	elemento--;
-	return codigo;
+
+	return sistema;
 }
 
 void listarPedidoNaoAtendido(Fila* sistema)
 {
 	int x = 0, qtd = sistema->elemento;
 	Fila* fila = sistema;
-	int ele = elemento;
+	int ele = sistema->elemento;
 	for(x; x <= qtd; x++)
 	{
-		printf(" N %i: %i\n", x, fila->codigo);
-		fila->posicao = (fila->elemento+fila->posicao+1)%TAMANHO;
-		fila->elemento--;
+		printf(" N %i: %i\n", x, fila->codigo[ele]);
+		fila->posicao = (ele+fila->posicao+1)%TAMANHO;
 		ele--;
 	}
 }
@@ -87,7 +74,7 @@ void listarPedidoNaoAtendido(Fila* sistema)
 int main ()
 {
 	int codigo = 0, escolha = 0;
-	Fila* sistema, sistemaAtendido;
+	Fila* sistema = NULL, sistemaAtendido;
 	
 	do
 	{
@@ -108,13 +95,17 @@ int main ()
 				printf("\t\tCastro\n\n");
 				printf("Digite um codigo numerico: ");
 				scanf("%i", &codigo);
-				sistema = novoPedido(codigo);
+				sistema = novoPedido(codigo, sistema);
+				printf("%i\n", sistema->elemento);
+				system("pause");
 				break;
 				
 			case 2:
 				system("cls");
 				printf("\t\tPedidos\n\n");
-				printf("Pedido Atendido: %i\n\n\n\n\n\n\n\n", atenderPedido(sistema));
+				sistema = atenderPedido(sistema);
+				printf("Pedido Atendido: %i\n\n\n\n\n\n\n\n", sistema->codigo);
+				printf("%i : \n", sistema->elemento);
 				system("pause");
 				break;
 				
