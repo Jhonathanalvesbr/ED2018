@@ -5,7 +5,8 @@ int MotorEsquerda = 9; // Motor Esquerda
 int isObstaclePin = 7;  // This is our input pin
 int isObstacle = HIGH;  // HIGH MEANS NO OBSTACLE
 
-void setup() {
+void setup()
+{
   pinMode(MotorDireita, OUTPUT);
   pinMode(MotorEsquerda, OUTPUT);
   pinMode(isObstaclePin, INPUT);
@@ -13,7 +14,8 @@ void setup() {
   
 }
 
-void loop() {
+void loop()
+{
   isObstacle = digitalRead(isObstaclePin);
   if (isObstacle == LOW)
   {
