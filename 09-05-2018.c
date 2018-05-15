@@ -10,71 +10,27 @@
 
 #define TAMANHO 100
 
-typedef struct fila Fila;
 
 struct fila
 {
 	int codigo[TAMANHO], posicao, elemento;
 };
 
-
-Fila* criar()
-{
-	Fila* criar = (Fila*) malloc(sizeof(Fila));
-	if(criar != NULL)
-	{
-		criar->posicao = 55;
-		criar->elemento = 0;
-		return criar;
-	}
-	return 0;
-}
-
-Fila* novoPedido(int codigo, Fila* novo)
-{
-	if(novo == NULL)
-	{
-		novo = criar();
-	}
-	novo->posicao = (novo->elemento+novo->posicao)%TAMANHO;
-	novo->codigo[novo->elemento++] = codigo;
-	
-	return novo;
-}
+typedef struct fila Fila;
 
 
-Fila* atenderPedido(Fila* sistema)
-{
-	if(sistema->elemento == 0)
-	{
-		printf("Lista Vazia\n");
-		return 0;
-	}
-	
-	sistema->posicao = (sistema->elemento+sistema->posicao+1)%TAMANHO;
-
-
-	return sistema;
-}
-
-void listarPedidoNaoAtendido(Fila* sistema)
-{
-	int x = 0, qtd = sistema->elemento;
-	Fila* fila = sistema;
-	int ele = sistema->elemento;
-	for(x; x <= qtd; x++)
-	{
-		printf(" N %i: %i\n", x, fila->codigo[ele]);
-		fila->posicao = (ele+fila->posicao+1)%TAMANHO;
-		ele--;
-	}
-}
-
+Fila* criar();
+void novoPedido(int codigo, Fila* sistema);
+void atenderPedido(Fila* sistema, Fila* sistemaAtendido);
+void listar(Fila* sistema);
 
 int main ()
 {
 	int codigo = 0, escolha = 0;
-	Fila* sistema = NULL, sistemaAtendido;
+	Fila *sistema, *sistemaAtendido;
+	
+	sistema = criar();
+	sistemaAtendido = criar();
 	
 	do
 	{
@@ -95,42 +51,85 @@ int main ()
 				printf("\t\tCastro\n\n");
 				printf("Digite um codigo numerico: ");
 				scanf("%i", &codigo);
-				sistema = novoPedido(codigo, sistema);
-				printf("%i\n", sistema->elemento);
+				novoPedido(codigo, sistema);
 				system("pause");
 				break;
 				
 			case 2:
 				system("cls");
 				printf("\t\tPedidos\n\n");
-				sistema = atenderPedido(sistema);
-				printf("Pedido Atendido: %i\n\n\n\n\n\n\n\n", sistema->codigo);
-				printf("%i : \n", sistema->elemento);
+				atenderPedido(sistema, sistemaAtendido);
+				printf("Pedido Atendido: %i\n", sistemaAtendido->codigo[(sistemaAtendido->posicao+sistemaAtendido->elemento-1)%TAMANHO]);
 				system("pause");
 				break;
 				
 			case 3:
 				system("cls");
 				printf("\t\tPedidos\n\n");
-				printf("Pedidos Nao Atendidos: %i\n", sistema->elemento+1);
+				printf("Quantidade de Pedidos Nao Atendidos: %i\n", sistema->elemento);
 				printf("");
-				listarPedidoNaoAtendido(sistema);
+				listar(sistema);
 				system("pause");
 				break;
 				
 			case 4:
-				
+				system("cls");
+				printf("\t\tPedidos\n\n");
+				printf("Quantidade de Pedidos Atendidos: %i\n", sistemaAtendido->elemento);
+				printf("");
+				listar(sistemaAtendido);
+				system("pause");
 				break;
 				
 		}
 		
 	}
 	while(escolha != 0);
-
-	
-	
-	
 	
 	
 	return 0;
+}
+
+void listar(Fila *sistema)
+{
+	Fila listar = *sistema;
+	{
+		while(listar.elemento > 0)
+		{
+			int codigo = listar.codigo[listar.posicao];
+			printf("%i\n", codigo);
+			listar.posicao = (listar.posicao+1)%TAMANHO;
+			listar.elemento--;
+		}
+	}
+}
+
+void atenderPedido(Fila* sistema, Fila* sistemaAtendido)
+{
+	if(sistema->elemento > 0)
+	{
+		int codigo = sistema->codigo[sistema->posicao];
+		sistema->posicao = (sistema->posicao+1)%TAMANHO;
+		sistema->elemento--;
+		
+		novoPedido(codigo, sistemaAtendido);
+	}
+	
+}
+
+void novoPedido(int codigo, Fila* fila)
+{
+	fila->codigo[(fila->posicao+fila->elemento)%TAMANHO] = codigo;
+	fila->elemento++;
+}
+
+Fila* criar()
+{
+	Fila* fila = (Fila*) malloc(sizeof(Fila));
+	if(fila != NULL)
+	{
+		fila->posicao = 70;
+		fila->elemento = 0;
+		return fila;
+	}
 }
