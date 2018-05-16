@@ -22,7 +22,7 @@ typedef struct pilha Pilha;
 Pilha* criarPilha();
 Fila* criarFila();
 Fila* inserir(Fila* fila, int placa);
-Fila* remover(Fila* remover);
+Fila* remover(Fila* remover, int posicao);
 
 int main ()
 {
@@ -49,7 +49,9 @@ int main ()
 		}
 		else if(input == 2)
 		{
-			remover(fila);
+			printf("Digite a vaga: ");
+			scanf("%i", &input);
+			remover(fila, input);
 		}
 	}
 	
@@ -99,15 +101,19 @@ Fila* inserir(Fila* fila, int placa)
 		system("pause");
 		return 0;
 	}
+	
 	fila->placa[(fila->elemento+fila->posicao)%E] = placa;
 	fila->elemento++;
 	
 	return fila;
 }
 
-Fila* remover(Fila* remover)
+Fila* remover(Fila* fila, int posicao)
 {
-	Fila* fila = remover;
+	Pilha* pilha = criarPilha();
+	Fila remover = *fila;
+	
+	int placa = 0;
 	
 	if(fila->elemento == 0)
 	{
@@ -115,6 +121,15 @@ Fila* remover(Fila* remover)
 		system("pause");
 		return 0;
 	}
+	
+	for(int x = fila->posicao+posicao; x < posicao; x++)
+	{
+		placa = fila->placa[posicao];
+		pop(pilha, placa);
+		fila-> posicao = (fila->posicao+1)%E;
+		fila->elemento--;
+	}
+	
 	
 	printf("Veiculo Placa: %i\n", fila->placa[fila->posicao]);
 	system("pause");
