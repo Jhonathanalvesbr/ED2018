@@ -175,7 +175,7 @@ int removerPosi(Fila* fila, int posicao)
 		fila->posicao = (fila->posicao+1)%E;
 		fila->elemento--;
 	}
-	
+	remover->elemento--;
 	printf("Veiculo saiu: %i\nQuantidade de movimentos: %i\n", fila->placa[fila->posicao], x);
 	fila->posicao = (fila->posicao+1)%E;
 	fila->elemento--;
@@ -188,6 +188,7 @@ int removerPosi(Fila* fila, int posicao)
 		remover->posicao = (remover->posicao+1)%E;
 		remover->elemento--;
 	}
+	free(remover);
 
 }
 /*
