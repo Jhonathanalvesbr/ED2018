@@ -10,25 +10,15 @@ struct fila
 	int elemento;	
 };
 
-struct pilha
-{
-	int placa[E];
-	int topo;
-};
-
-
 typedef struct fila Fila;
 typedef struct pilha Pilha;
 
 Fila* criarFila();
 Fila* inserir(Fila* fila, int placa);
-int removerPosi(Fila* fila, int posicao);
 int remover(Fila* fila);
+int removerPosi(Fila* fila, int posicao);
 void listar(Fila *fila);
-/*void push(Pilha* pilha, int placa);
-Pilha* criarPilha();
-int pop(Pilha *pilha);
-*/
+
 int main ()
 {
 	Fila* fila;
@@ -40,7 +30,6 @@ int main ()
 	
 	fila = criarFila();
 	esperar = criarFila();
-	//pilha = criarPilha();
 	
 	while(1)
 	{
@@ -112,15 +101,10 @@ void listar(Fila *fila)
 	while(f.elemento > 0)
 	{
 		printf("%i - Placa: %i\n", x, f.placa[f.posicao]);
-		//push(pilha,f.placa[f.posicao]);
 		f.elemento--;
 		f.posicao = (f.posicao+1)%E;
 		x++;
 	}
-	/*while(pilha->topo != 0)
-	{
-		printf("Veiculos: %i\n", pop(pilha));
-	}*/
 }
 
 Fila* inserir(Fila* fila, int placa)
@@ -156,7 +140,8 @@ int remover(Fila* fila)
 
 int removerPosi(Fila* fila, int posicao)
 {
-	Fila *remover = criarFila();
+	Fila *novo=criarFila();
+	
 	
 	int x = 1;
 	
@@ -168,49 +153,16 @@ int removerPosi(Fila* fila, int posicao)
 	
 	for(x; x < posicao; x++)
 	{
-		remover->placa[remover->posicao] = fila->placa[fila->posicao];
-		remover->posicao = (remover->elemento+remover->posicao)%E;
-		remover->elemento++;
-		
-		fila->posicao = (fila->posicao+1)%E;
-		fila->elemento--;
+		inserir(novo, remover(fila));
 	}
-	remover->elemento--;
+
 	printf("Veiculo saiu: %i\nQuantidade de movimentos: %i\n", fila->placa[fila->posicao], x);
-	fila->posicao = (fila->posicao+1)%E;
-	fila->elemento--;
+	remover(fila);
 	
 	for(x; x > 1; x--)
 	{
-		fila->placa[(fila->elemento+fila->posicao)%E] = remover->placa[(remover->posicao)];
-		fila->elemento++;
 		
-		remover->posicao = (remover->posicao+1)%E;
-		remover->elemento--;
+		inserir(fila, remover(novo));
 	}
-	free(remover);
 
 }
-/*
-Pilha* criarPilha()
-{
-	Pilha* pilha = (Pilha*) malloc (sizeof(Pilha));
-	if(pilha != NULL)
-	{
-		pilha->topo = 0;
-		
-		return pilha;
-	}
-}
-/*
-void push(Pilha* pilha, int placa)
-{
-	pilha->placa[pilha->topo++] = placa;
-}
-
-int pop(Pilha *pilha)
-{
-	pilha->topo--;
-	
-	return	pilha->placa[pilha->topo];
-}*/
