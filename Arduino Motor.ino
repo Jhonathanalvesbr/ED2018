@@ -1,37 +1,40 @@
-// IR Obstacle Collision Detection Module
+//IR Obstacle Collision Detection Module
 
 int MotorDireita = 8; // Motor Direita
 int MotorEsquerda = 9; // Motor Esquerda
-int isObstaclePin = 7;  // This is our input pin
-int isObstacle = HIGH;  // HIGH MEANS NO OBSTACLE
+int SensorDireita = 7;  // Sensor Direita
+int SensorEsquerda = 6;  // Sensor Esquerda
 
 void setup()
 {
-  pinMode(MotorDireita, OUTPUT);
-  pinMode(MotorEsquerda, OUTPUT);
-  pinMode(isObstaclePin, INPUT);
-  Serial.begin(9600);
+  for(int x = 8; x <= 9; x++)
+  {
+    pinMode(x, OUTPUT);
+  }
+
+  for(int x = 6; x <= 7; x++)
+  {
+    pinMode(x, INPUT);
+  }
   
+  Serial.begin(9600);
 }
 
 void loop()
 {
-  isObstacle = digitalRead(isObstaclePin);
-  if (isObstacle == LOW)
+    
+  if (digitalRead(SensorDireita) == HIGH)
   {
-    Serial.println("OBSTACLE!!, OBSTACLE!!");
-   // digitalWrite(LED, HIGH);
+    Serial.println("Direita");
+  }
+  else if(digitalRead(SensorEsquerda) == HIGH)
+  {
+    Serial.println("Esquerda");
   }
   else
   {
-    Serial.println("clear");
-//    digitalWrite(LED, LOW);
+    Serial.println("Frente");
   }
-
-  digitalWrite(MotorDireita, HIGH);
-  digitalWrite(MotorEsquerda, HIGH);
-
-  
+    
   delay(200);
 }
-
