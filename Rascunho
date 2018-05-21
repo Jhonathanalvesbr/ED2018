@@ -1,0 +1,38 @@
+algoritmo "semnome"
+// Função :
+// Autor :
+// Data : 21/05/2018
+// Seção de Declarações 
+var
+sexo, corOlhos, corCabelos: caracter
+ir, idade, quantidadeHomens, quantidadeMulheres: inteiro
+
+inicio
+// Seção de Comandos
+quantidadeHomens <- 0
+quantidadeMulheres <- 0
+
+enquanto idade > -1 faca
+         escreval("Digite o sexo (M) Masculino ou (F) Feminino")
+         leia(sexo)
+         se sexo = "m" entao
+                 quantidadeHomens <- quantidadeHomens + 1
+         senao se sexo = "f" entao
+                  quantidadeMulheres <- quantidadeMulheres + 1
+         fimse
+         escreval("Digite a cor dos olhos (A) Azul, (V) Verde, (C) Castanho")
+         leia(corOlhos)
+         escreval("Digite a cor dos cabelos (L) Louro, (C) Castanho, (P) Preto")
+         leia(corCabelos)
+         escreva("Digite a idade: ")
+         leia(idade)
+fimenquanto
+
+escreva("Quantidade de homens ")
+escreva(quantidadeHomens)
+escreval("")
+escreva("Quantidade de mulheres")
+escreva(quantidadeMulheres)
+
+
+fimalgoritmo
