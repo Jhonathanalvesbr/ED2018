@@ -1,0 +1,109 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+struct arvore
+{
+	int item;
+	struct arvore *arvoreEsquerda, *arvoreDireita;
+};
+
+typedef struct arvore Arvore;
+
+Arvore *criarNo()
+{
+	Arvore *no = (Arvore*) malloc (sizeof(Arvore));
+	no->arvoreEsquerda = NULL;
+	no->arvoreDireita = NULL;
+}
+
+Arvore *arvoreGera(Arvore *raiz, int item)
+{
+	if(raiz == NULL)
+	{
+		Arvore *no = criarNo();
+		no->item = item;
+		raiz = no;
+		return raiz;
+	}
+	else
+	{
+		if(raiz->item > item)
+		{
+			if(raiz->arvoreEsquerda == NULL)
+			{
+				Arvore *no = criarNo();
+				no->item = item;
+				raiz->arvoreEsquerda = no;
+				return raiz;	
+			}
+			else
+			{
+				raiz->arvoreEsquerda = arvoreGera(raiz->arvoreEsquerda, item);
+			}
+		}
+		else
+		{
+			if(raiz->arvoreDireita == NULL)
+			{
+				Arvore *no = criarNo();
+				no->item = item;
+				raiz->arvoreDireita = no;
+				return raiz;
+			}
+			else
+			{
+				raiz->arvoreDireita = arvoreGera(raiz->arvoreDireita, item);
+			}
+		}
+	}
+}
+
+int soma = 0;
+
+void somaArvore(Arvore *raiz) //Percorre em Ordem
+{
+	int resultado;
+	
+	if(raiz != NULL)
+	{
+		somaArvore(raiz->arvoreEsquerda);
+		soma += raiz->item;
+		somaArvore(raiz->arvoreDireita);
+	}
+}
+
+int main()
+{
+	Arvore *raiz = NULL;
+	
+	int item = 0, opcao = 0;
+	
+	while(1)
+	{
+		printf("1 - Adicionar Elemento\n2 - Somatorio dos elementos\n3 - Encerrar\n");
+		printf("Digite uma opcao: ");
+		scanf("%i", &opcao);
+		
+		if(opcao == 1)
+		{
+			printf("Digite um elemento: ");
+			scanf("%i", &item);
+			raiz = arvoreGera(raiz, item);
+		}
+		else if(opcao == 2)
+		{
+			somaArvore(raiz);
+			printf("A soma dos elementos da Arvore: %i\n", soma);
+		}
+		else
+		{
+			printf("Encerrou\n");
+			exit(0);
+		}
+		system("pause");
+		system("cls");
+	}
+		
+	
+	return 0;
+}
