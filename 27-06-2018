@@ -62,8 +62,6 @@ int soma = 0;
 
 void somaArvore(Arvore *raiz) //Percorre em Ordem
 {
-	int resultado;
-	
 	if(raiz != NULL)
 	{
 		somaArvore(raiz->arvoreEsquerda);
