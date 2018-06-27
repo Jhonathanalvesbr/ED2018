@@ -58,15 +58,11 @@ Arvore *arvoreGera(Arvore *raiz, int item)
 	}
 }
 
-int soma = 0;
-
-void somaArvore(Arvore *raiz) //Percorre em Ordem
+int somaArvore(Arvore *raiz) //Percorre em Ordem
 {
 	if(raiz != NULL)
 	{
-		somaArvore(raiz->arvoreEsquerda);
-		soma += raiz->item;
-		somaArvore(raiz->arvoreDireita);
+		return raiz->item + somaArvore(raiz->arvoreEsquerda) + somaArvore(raiz->arvoreDireita);
 	}
 }
 
@@ -93,7 +89,7 @@ int main()
 		{
 			system("cls");
 			somaArvore(raiz);
-			printf("A soma dos elementos da Arvore: %i\n", soma);
+			printf("A soma dos elementos da Arvore: %i\n", somaArvore(raiz));
 			system("pause");
 		}
 		else
@@ -104,6 +100,5 @@ int main()
 		system("cls");
 	}
 		
-	
 	return 0;
 }
