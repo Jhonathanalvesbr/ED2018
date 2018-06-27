@@ -84,21 +84,23 @@ int main()
 		
 		if(opcao == 1)
 		{
+			system("cls");
 			printf("Digite um elemento: ");
 			scanf("%i", &item);
 			raiz = arvoreGera(raiz, item);
 		}
 		else if(opcao == 2)
 		{
+			system("cls");
 			somaArvore(raiz);
 			printf("A soma dos elementos da Arvore: %i\n", soma);
+			system("pause");
 		}
 		else
 		{
-			printf("Encerrou\n");
+			printf("\nEncerrou\n");
 			exit(0);
 		}
-		system("pause");
 		system("cls");
 	}
 		
